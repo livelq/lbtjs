@@ -1,0 +1,55 @@
+#main{
+	width: 790px;
+    height: 300px;
+    margin: 0 auto;   /*上下0 左右自适应*/
+	position: relative;/*   */
+	overflow: hidden;
+}
+#picture{
+	list-style: none;
+}
+img{
+	float: left;
+	height: 300px;
+	width: 650px;
+}
+
+
+#list{
+	list-style: none;
+    position: absolute;
+    top: 240px;
+    left: 26%;
+}
+#list li{
+	float: left;
+	width: 20px;
+    height: 20px;
+    text-align: center;/*放在圆内*/
+    border-radius: 50%;
+    background: #aaa;
+    line-height: 20px;/*放在圆圈内*/
+    margin-right: 10px;/*不要挨在一起*/
+
+}
+
+.chooseBut{
+	width: 50px;
+    height: 80px;
+	background-color: rgba(0,0,0,0.2);/*显示方框*/
+	color: #fff;/*箭头设置为白色*/
+	font-size: 30px;/*括号变大*/
+	line-height: 80px;/*调整位置*/
+    text-align: center;/*调整位置*/
+    display: none;
+}
+#left{
+	position: absolute;
+    left: 40px;
+    top: 130px;
+}
+#right{
+	position: absolute;
+    right: 100px;
+    top: 130px;
+}

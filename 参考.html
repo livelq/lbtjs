@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style>
+        #loopDiv{
+            width: 790px;
+            height: 340px;
+            margin: 0 auto;
+            position: relative;
+        }
+        #list{
+            list-style: none;
+            position: absolute;
+            bottom: 10px;
+            left: 250px;
+        }
+        #list li{
+            float: left;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 50%;
+            background: #aaa;
+            margin-right: 10px;
+        }
+        .chooseBut{
+            width: 50px;
+            height: 80px;
+            background-color: rgba(0,0,0,0.2);
+            color: #fff;
+            font-size: 30px;
+            line-height: 80px;
+            text-align: center;
+            display: none;
+        }
+        #left{
+            position: absolute;
+            left: 0px;
+            top: 130px;
+        }
+        #right{
+            position: absolute;
+            right: 0px;
+            top: 130px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loopDiv">
+        ![](img/0.jpg)
+        <ul id="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li> 
+            <!-- <li><img src=":/web/代码\js/js实现轮播图/图片/1.jpg"></li>
+            <li><img src=":/web/代码\js/js实现轮播图/图片/2.jpg"></li>
+            <li><img src=":/web/代码\js/js实现轮播图/图片/3.jpg"></li>
+            <li><img src=":/web/代码\js/js实现轮播图/图片/4.jpg"></li>
+            <li><img src=":/web/代码\js/js实现轮播图/图片/5.jpg"></li>
+            <li><img src=":/web/代码\js/js实现轮播图/图片/6.jpg"></li>
+            <li><img src=":/web/代码\js/js实现轮播图/图片/7.jpg"></li>
+            <li><img src=":/web/代码\js/js实现轮播图/图片/8.jpg"></li> -->
+        </ul>
+        <div id="left" class="chooseBut"><</div>
+        <div id="right" class="chooseBut">></div>
+    </div>
+    <script type="text/javascript">
+        var jsDivBox = document.getElementById("loopDiv");
+        //图片节点
+        var jsImg = document.getElementById("pic");
+        //左右按钮节点
+        var jsLeft = document.getElementById("left");
+        var jsRight = document.getElementById("right");
+        //获取所有的li
+        var jsUl = document.getElementById("list");
+        var jsLis = jsUl.getElementsByTagName("li");
+        //让第一个小圆点变为红色
+        jsLis[0].style.backgroundColor = "red";
+ 
+        //显示当前的图片下标
+        var currentPage = 0;
+ 
+        //启动定时器
+        var timer = setInterval(func, 1000);
+        function func() {
+            currentPage++;
+            changePic();
+ 
+        }
+        function changePic() {
+            if (currentPage == 8) {
+                currentPage = 0;
+            }
+            if (currentPage == -1) {
+                currentPage = 7;
+            }
+            //更换图片
+            //"img/1.jpg"
+            jsImg.src = "img/" + currentPage + ".jpg";
+            //将所有的小圆点颜色清空
+            for (var i = 0; i < jsLis.length; i++) {
+                jsLis[i].style.backgroundColor = "#aaa";
+            }
+            //改变对应小圆点为红色
+            jsLis[currentPage].style.backgroundColor = "red";
+        }
+ 
+        //鼠标进入
+        jsDivBox.addEventListener("mouseover", func1, false);
+        function func1() {
+            //停止定时器
+            clearInterval(timer);
+            //显示左右按钮
+            jsLeft.style.display = "block";
+            jsRight.style.display = "block";
+        }
+        //鼠标移出
+        jsDivBox.addEventListener("mouseout", func2, false);
+        function func2() {
+            //重启定时器
+            timer = setInterval(func, 1000);
+ 
+            //隐藏左右按钮
+            jsLeft.style.display = "none";
+            jsRight.style.display = "none";
+        }
+ 
+        //点击左右按钮
+        jsLeft.addEventListener("click", func3, false);
+        function func3() {
+            currentPage--;
+            changePic();
+        }
+        jsLeft.onmouseover = function() {
+            this.style.backgroundColor = "rgba(0,0,0,0.6)";
+        }
+        jsLeft.onmouseout = function() {
+            this.style.backgroundColor = "rgba(0,0,0,0.2)";
+        }
+        jsRight.addEventListener("click", func4, false);
+        function func4() {
+            currentPage++;
+            changePic();
+        }
+        jsRight.onmouseover = function() {
+            this.style.backgroundColor = "rgba(0,0,0,0.6)";
+        }
+        jsRight.onmouseout = function() {
+            this.style.backgroundColor = "rgba(0,0,0,0.2)";
+        }
+ 
+        //进入小圆点
+        for (var j = 0; j < jsLis.length; j++) {
+            jsLis[j].onmouseover = function() {
+                currentPage = parseInt(this.innerHTML) - 1;
+                changePic();
+            };
+        }
+ 
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+ <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style>
+        * {
+              margin:0;
+            padding:0;
+        }
+ 
+        ul {
+              list-style:none;
+        }
+        .loop{
+            position: relative;
+            margin:30px auto;
+            width:600px;
+            height:300px;
+        }
+ 
+        #wrap {
+              position:relative;
+              width:600px;
+              height:300px;
+               border:1px solid #9cc5ef;
+               overflow:hidden;
+        }
+ 
+        #slider {
+              width:300%;
+              height:100%;
+              font:100px/400px Microsoft Yahei;
+              text-align:center;
+              color:#fff;
+              margin-left:0;
+              -webkit-animation:slide1 3s ease-out infinite;
+        }
+ 
+        #slider li {
+              float:left;
+              width:600px;
+              height:100%;
+        }
+        #slider img{
+             width:600px;
+             height:100%;
+        }
+        /*创建三种动画策略*/
+        @-webkit-keyframes slide1 {
+          0% { margin-left:0;}
+          23% { margin-left:0;}
+          33% { margin-left:-600px;}
+          56% { margin-left:-600px;}
+          66% { margin-left:-1200px;}
+          90% { margin-left:-1200px;}
+          100% {margin-left:0;}
+        }
+ 
+        @-webkit-keyframes slide2 {
+          0% { margin-left:-600px;}
+          23% { margin-left:-600px;}
+          33% { margin-left:-1200px;}
+          56% { margin-left:-1200px;}
+          66% { margin-left:0;}
+          90% { margin-left:0;}
+          100% {margin-left:-600px;}
+        }
+ 
+        @-webkit-keyframes slide3 {
+          0% { margin-left:-1200px;}
+          23% { margin-left:-1200px;}
+          33% { margin-left:0;}
+          56% { margin-left:0;}
+          66% { margin-left:-600px;}
+          90% { margin-left:-600px;}
+          100% {margin-left:-1200px;}
+        }
+ 
+ 
+        /*当我们点击对应按钮时显示对应的动画*/
+        #first:checked ~ #wrap #slider {
+          -webkit-animation-name:slide1;
+        }
+ 
+        #second:checked ~ #wrap #slider {
+          -webkit-animation-name:slide2;
+        }
+ 
+        #third:checked ~ #wrap #slider {
+          -webkit-animation-name:slide3;
+        }
+ 
+ 
+        /*短暂地取消动画名称，模拟重启动画*/
+        #first:active ~ #wrap #slider {
+          -webkit-animation-name:none;
+          margin-left:0;
+        }
+ 
+        #second:active ~ #wrap #slider {
+          -webkit-animation-name:none;
+          margin-left:-600px;
+        }
+ 
+        #third:active ~ #wrap #slider {
+          -webkit-animation-name:none;
+          margin-left:-1200px;
+        }
+        #opts {
+          width:600px;
+          height:40px;
+          margin:auto;
+          color:#fff;
+          text-align:center;
+          font:16px/30px Microsoft Yahei;
+          position: absolute;
+          top: 260px;
+          left: 250px;
+        }
+ 
+        #opts label {
+          float:left;
+          width:30px;
+          height:30px;
+          margin-right:10px;
+          background:#cccccc;
+          cursor:pointer;
+          border-radius: 50%;
+        }
+ 
+        #opts label:hover {
+          background:#405871;
+        }
+ 
+        /* 隐藏Input按钮*/
+        #first, #second, #third {
+          display:none;
+        }
+ 
+        </style>
+    </head>
+    <body>
+        <div class="loop">
+            <input type="radio" name="slider" id="first">
+            <input type="radio" name="slider" id="second">
+            <input type="radio" name="slider" id="third">
+ 
+            <div id="wrap">
+              <ul id="slider">
+                <li>![](img/0.jpg)</li>
+                <li>![](img/1.jpg)</li>
+                <li>![](img/2.jpg)</li>
+              </ul>
+            </div>  
+            <div id="opts">
+              <label for="first">1</label>
+              <label for="second">2</label>
+              <label for="third">3</label>
+            </div>
+        </div>
+    </body>
+</html>
+ -->
